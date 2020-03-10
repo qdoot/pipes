@@ -85,12 +85,5 @@ public class Panel {
 			}
 		}
 	}
-	
-	public void redrawPipes() {
-		System.out.println("Redraw");
-		for(Pipe pipe: pipes) {
-			pipe.getGraphic().setFill(Color.AQUA);
-		}
-	}
 
 }

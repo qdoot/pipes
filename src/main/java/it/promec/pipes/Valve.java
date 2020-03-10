@@ -21,7 +21,7 @@ public class Valve {
 		this.y = y;
 		
 		Circle circle = new Circle();
-		circle.setFill(Color.DARKGREEN);
+		circle.setFill(Constants.VALVE_OFF_COLOR);
 		circle.setRadius(10);
 		circle.setOnMouseReleased(new EventHandler<MouseEvent>()
         {
@@ -29,7 +29,7 @@ public class Valve {
             public void handle(MouseEvent t) {
             	System.out.println("Valve clicked x=" + x + " y=" + y);
             	open = !open;
-            	Color color = (open) ? Color.LIGHTGREEN : Color.DARKGREEN;
+            	Color color = (open) ? Constants.VALVE_ON_COLOR : Constants.VALVE_OFF_COLOR;
         		circle.setFill(color);
         		enlightPipes(x, y, valves, pipes);
             }
@@ -37,9 +37,8 @@ public class Valve {
 		
 		graphic = circle;
 		
-		
 		Rectangle rectangle = new Rectangle();
-		Color color = Color.DARKGRAY;
+		Color color = (x == Constants.ROWS) ? Constants.INPUT_BACKGROUND_COLOR : Constants.VALVE_BACKGROUND_COLOR;
 		rectangle.setFill(color);
 		rectangle.setHeight(Constants.RECTANGLE_Y);
 		rectangle.setWidth(Constants.RECTANGLE_X);

@@ -15,7 +15,7 @@ public class Pipe {
 		this.y = y;
 		
 		Rectangle pipe = new Rectangle();
-		Color color = Color.BLACK;
+		Color color = Constants.PIPE_OFF_COLOR;
 		
 		if(isVertical) {
 			pipe.setHeight(Constants.RECTANGLE_Y/4);
