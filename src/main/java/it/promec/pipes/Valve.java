@@ -1,5 +1,6 @@
 package it.promec.pipes;
 
+import java.util.List;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -14,7 +15,7 @@ public class Valve {
 	private int x;
 	private int y;
 	
-	public Valve(int x, int y) {
+	public Valve(int x, int y, List<Valve> valves, List<Pipe> pipes) {
 		
 		this.x = x;
 		this.y = y;
@@ -26,10 +27,11 @@ public class Valve {
         {
             @Override
             public void handle(MouseEvent t) {
-            	System.out.println("Valve clicked");
+            	System.out.println("Valve clicked x=" + x + " y=" + y);
             	open = !open;
             	Color color = (open) ? Color.LIGHTGREEN : Color.DARKGREEN;
         		circle.setFill(color);
+        		enlightPipes(x, y, valves, pipes);
             }
         });
 		
@@ -37,11 +39,6 @@ public class Valve {
 		
 		
 		Rectangle rectangle = new Rectangle();
-		
-		/*
-		rectangle.setStyle("-fx-border-width: 2000px;");
-		rectangle.setStyle("-fx-border-style: solid;");
-		rectangle.setStyle("-fx-border-color: white");*/
 		Color color = Color.DARKGRAY;
 		rectangle.setFill(color);
 		rectangle.setHeight(Constants.RECTANGLE_Y);
@@ -88,5 +85,50 @@ public class Valve {
 
 	public void setY(int y) {
 		this.y = y;
+	}
+	
+	private void enlightPipes(int x, int y, List<Valve> valves, List<Pipe> pipes) {
+		
+		for(Valve valve: valves) {
+			
+			if(valve.isOpen()) {
+				
+				if((valve.getX()==x)&&(valve.getY() == y+2)) {
+					for(Pipe pipe: pipes) {
+						if((pipe.getX() == x)&&((pipe.getY() == y+1))) {
+							pipe.getGraphic().setFill(Color.BLUEVIOLET);
+							System.out.println("Enlighted pipe x=" + pipe.getX() + " y=" + pipe.getY());
+						}
+					}
+				}
+				
+				if((valve.getX()==x)&&(valve.getY() == y-2)) {
+					for(Pipe pipe: pipes) {
+						if((pipe.getX() == x)&&((pipe.getY() == y-1))) {
+							pipe.getGraphic().setFill(Color.BLUEVIOLET);
+							System.out.println("Enlighted pipe x=" + pipe.getX() + " y=" + pipe.getY());
+						}
+					}
+				}
+				
+				if((valve.getY()==y)&&(valve.getX() == x-2)) {
+					for(Pipe pipe: pipes) {
+						if((pipe.getY() == y)&&((pipe.getX() == x-1))) {
+							pipe.getGraphic().setFill(Color.BLUEVIOLET);
+							System.out.println("Enlighted pipe x=" + pipe.getX() + " y=" + pipe.getY());
+						}
+					}
+				}
+				
+				if((valve.getY()==y)&&(valve.getX() == x+2)) {
+					for(Pipe pipe: pipes) {
+						if((pipe.getY() == y)&&((pipe.getX() == x+1))) {
+							pipe.getGraphic().setFill(Color.BLUEVIOLET);
+							System.out.println("Enlighted pipe x=" + pipe.getX() + " y=" + pipe.getY());
+						}
+					}
+				}
+			}
+		}
 	}
 }

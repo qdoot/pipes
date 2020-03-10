@@ -6,8 +6,13 @@ import javafx.scene.shape.Rectangle;
 public class Pipe {
 
 	private Rectangle graphic;
+	private int x;
+	private int y;
 	
-	public Pipe(boolean isVertical) {
+	public Pipe(int x, int y, boolean isVertical) {
+		
+		this.x = x;
+		this.y = y;
 		
 		Rectangle pipe = new Rectangle();
 		Color color = Color.BLACK;
@@ -31,5 +36,21 @@ public class Pipe {
 
 	public void setGraphic(Rectangle graphic) {
 		this.graphic = graphic;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
 	}
 }

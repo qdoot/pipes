@@ -20,10 +20,10 @@ public class App extends Application
 		
 		stage.setTitle("Pipes");
 
-		GridPane background = BackGround.create();
+		GridPane panel = Panel.create();
 
 		StackPane root = new StackPane();
-		root.getChildren().add(background);
+		root.getChildren().add(panel);
 		
 		stage.setScene(new Scene(root, Constants.WINDOW_X, Constants.WINDOW_Y));
 		stage.setResizable(false);
