@@ -12,6 +12,7 @@ public class Constants {
 	public static final int WINDOW_Y = RECTANGLE_Y * ROWS;
 	public static final int NODES_ON_X = 4;
 	public static final int NODES_ON_Y = 5;
+	public static final Color BACKGROUND_COLOR = Color.DIMGRAY;
 	public static final Color PIPE_OFF_COLOR = Color.BLACK;
 	public static final Color VALVE_OFF_COLOR = Color.DARKGREEN;
 	public static final Color VALVE_ON_COLOR = Color.LIGHTGREEN;

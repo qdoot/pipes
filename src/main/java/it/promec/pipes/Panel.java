@@ -38,7 +38,7 @@ public class Panel {
 				
 				Color color;				
 				//color = (isWhite) ? Color.rgb(100, 100, 100) : Color.rgb(130, 130, 130);
-				color = Color.rgb(100, 100, 100);
+				color = Constants.BACKGROUND_COLOR;
 				
 				isWhite = !isWhite;
 

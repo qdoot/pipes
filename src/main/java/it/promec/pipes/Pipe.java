@@ -17,6 +17,9 @@ public class Pipe {
 		Rectangle pipe = new Rectangle();
 		Color color = Constants.PIPE_OFF_COLOR;
 		
+		//Nascondo i tubi verticali tra input
+		if(x == Constants.ROWS) color = Constants.BACKGROUND_COLOR;
+		
 		if(isVertical) {
 			pipe.setHeight(Constants.RECTANGLE_Y/4);
 			pipe.setWidth(Constants.RECTANGLE_X);
