@@ -1,5 +1,6 @@
 package it.promec.pipes;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,25 +66,58 @@ public class Panel {
 				
 				if((i%2==1)&&(j%2==1)) {
 					Valve valve = new Valve(j, i, valves, pipes);
-					valves.add(valve);
-					grid.add(valve.getBackground(), j, i);
-					grid.add(valve.getGraphic(), j, i);
+					if(!isUnwantedElement(j,i)) {
+						valves.add(valve);
+						grid.add(valve.getBackground(), j, i);
+						grid.add(valve.getGraphic(), j, i);
+					}
 				}
 						
 				if((i%2==1)&&(j%2==0)) {
 					Pipe pipe = new Pipe(j, i, true);
-					pipes.add(pipe);
-					grid.add(pipe.getGraphic(), j, i);
+					if(!isUnwantedElement(j,i)) {
+						pipes.add(pipe);
+						grid.add(pipe.getGraphic(), j, i);
+					}
 				}
 				
 				if((i%2==0)&&(j%2==1)) {
 					Pipe pipe = new Pipe(j, i, false);
-					pipes.add(pipe);
-					grid.add(pipe.getGraphic(), j, i);
+					if(!isUnwantedElement(j,i)) {
+						pipes.add(pipe);
+						grid.add(pipe.getGraphic(), j, i);
+					}
 				}
 				
 			}
 		}
+	}
+	
+	public static boolean isUnwantedElement(int x, int y) {
+		
+		boolean isUnwanted = false;
+		
+		List<int[]> unwantedElementCoordinates = new ArrayList<int[]>();
+		unwantedElementCoordinates.add(new int[] {1,7});
+		unwantedElementCoordinates.add(new int[] {1,6});
+		unwantedElementCoordinates.add(new int[] {2,7});
+		
+		unwantedElementCoordinates.add(new int[] {8,7});
+		unwantedElementCoordinates.add(new int[] {9,7});
+		unwantedElementCoordinates.add(new int[] {9,6});
+		unwantedElementCoordinates.add(new int[] {10,7});
+		unwantedElementCoordinates.add(new int[] {11,7});
+		unwantedElementCoordinates.add(new int[] {11,6});
+		
+		
+		for(int[] unwantedElementCoordinate : unwantedElementCoordinates) {
+			if((unwantedElementCoordinate[0] == x) && (unwantedElementCoordinate[1] == y)) {
+				isUnwanted = true;
+				break;
+			}
+		}
+		
+		return isUnwanted;
 	}
 
 }
