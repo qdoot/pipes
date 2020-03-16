@@ -42,7 +42,7 @@ public class Valve {
 		graphic = circle;
 		
 		Rectangle rectangle = new Rectangle();
-		Color color = (x == Constants.ROWS) ? Constants.INPUT_BACKGROUND_COLOR : Constants.VALVE_BACKGROUND_COLOR;
+		Color color = isInput() ? Constants.INPUT_BACKGROUND_COLOR : Constants.VALVE_BACKGROUND_COLOR;
 		rectangle.setFill(color);
 		rectangle.setHeight(Constants.RECTANGLE_Y);
 		rectangle.setWidth(Constants.RECTANGLE_X);
@@ -140,7 +140,7 @@ public class Valve {
 	private void hidePipesBetweenInputs(List<Pipe> pipes) {
 		
 		for(Pipe pipe : pipes) {
-			if(pipe.getX() == Constants.ROWS) {
+			if(pipe.isPipeBetweenInputs()) {
 				pipe.getGraphic().setFill(Constants.BACKGROUND_COLOR);
 			}
 		}
@@ -166,5 +166,9 @@ public class Valve {
 			default:	pipeOnColor = Color.PALEVIOLETRED;
 			  						  break;
 		}
+	}
+	
+	public boolean isInput() {
+		return (x == Constants.COLUMNS - 2 );
 	}
 }

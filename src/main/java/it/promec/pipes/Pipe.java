@@ -18,7 +18,7 @@ public class Pipe {
 		Color color = Constants.PIPE_OFF_COLOR;
 		
 		//Nascondo i tubi verticali tra input
-		if(x == Constants.ROWS) color = Constants.BACKGROUND_COLOR;
+		if(isPipeBetweenInputs()) color = Constants.BACKGROUND_COLOR;
 		
 		if(isVertical) {
 			pipe.setHeight(Constants.RECTANGLE_Y/4);
@@ -55,5 +55,9 @@ public class Pipe {
 
 	public void setY(int y) {
 		this.y = y;
+	}
+	
+	public boolean isPipeBetweenInputs() {
+		return (x == Constants.COLUMNS - 2 );
 	}
 }
