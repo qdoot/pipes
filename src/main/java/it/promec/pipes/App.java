@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
 
@@ -21,9 +22,10 @@ public class App extends Application
 		stage.setTitle("Pipes");
 
 		GridPane panel = Panel.create();
+		StackPane commandsPanel = CommandsPanel.create();
 
-		StackPane root = new StackPane();
-		root.getChildren().add(panel);
+		HBox root = new HBox();
+		root.getChildren().addAll(panel, commandsPanel);
 		
 		stage.setScene(new Scene(root, Constants.WINDOW_X, Constants.WINDOW_Y));
 		stage.setResizable(false);

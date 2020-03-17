@@ -15,7 +15,7 @@ public class Valve {
 	private int x;
 	private int y;
 	private static int numberOfFlows = 1;
-	private static Color pipeOnColor;
+	public static Color pipeOnColor = Color.CORAL;
 	
 	public Valve(int x, int y, List<Valve> valves, List<Pipe> pipes) {
 		
@@ -35,7 +35,7 @@ public class Valve {
             	Color color = (open) ? Constants.VALVE_ON_COLOR : Constants.VALVE_OFF_COLOR;
         		circle.setFill(color);
         		enlightPipes(x, y, valves, pipes);
-        		changePipeColor();
+        		//if(isInput()) changePipeColor();
             }
         });
 		
@@ -146,9 +146,10 @@ public class Valve {
 		}
 	}
 
-	private void changePipeColor() {
+	public static void changePipeColor() {
 		
-		if(y==7) numberOfFlows++;
+		numberOfFlows++;
+		if(numberOfFlows >=6) numberOfFlows = 1;
 		
 		switch (numberOfFlows) {
 			
