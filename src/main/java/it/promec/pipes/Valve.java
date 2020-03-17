@@ -169,6 +169,6 @@ public class Valve {
 	}
 	
 	public boolean isInput() {
-		return (x == Constants.COLUMNS - 2 );
+		return ((x == Constants.COLUMNS - 2)||(x == 1 && y == Constants.ROWS -2));
 	}
 }

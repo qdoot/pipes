@@ -9,7 +9,7 @@ public class Pipe {
 	private int x;
 	private int y;
 	
-	public Pipe(int x, int y, boolean isVertical) {
+	public Pipe(int x, int y, boolean isHorizontal) {
 		
 		this.x = x;
 		this.y = y;
@@ -20,7 +20,7 @@ public class Pipe {
 		//Nascondo i tubi verticali tra input
 		if(isPipeBetweenInputs()) color = Constants.BACKGROUND_COLOR;
 		
-		if(isVertical) {
+		if(isHorizontal) {
 			pipe.setHeight(Constants.RECTANGLE_Y/4);
 			pipe.setWidth(Constants.RECTANGLE_X);
 		} else {

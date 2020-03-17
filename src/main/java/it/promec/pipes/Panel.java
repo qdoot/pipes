@@ -1,6 +1,5 @@
 package it.promec.pipes;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,10 +88,33 @@ public class Panel {
 					}
 				}
 				
+				addSpecialElements(grid);
+				
 			}
 		}
 	}
 	
+	private static void addSpecialElements(GridPane grid) {
+		
+		//START lungo collegamento ultimo input a destra
+		for(int x=8; x<=11; x++) {
+			Pipe horizontalPipe = new Pipe(x, 7, true);
+			pipes.add(horizontalPipe);
+			grid.add(horizontalPipe.getGraphic(), x, 7);
+		}
+		//END lungo collegamento ultimo input a destra
+		
+		//START input e collegamento sulla sinistra
+		Pipe horizontalPipe = new Pipe(2, 7, true);
+		pipes.add(horizontalPipe);
+		grid.add(horizontalPipe.getGraphic(), 2, 7);
+		
+		Valve valve = new Valve(1, 7, valves, pipes);
+		grid.add(valve.getBackground(), 1, 7);
+		grid.add(valve.getGraphic(), 1, 7);
+		//END input e collegamento sulla sinistra
+	}
+
 	public static boolean isUnwantedElement(int x, int y) {
 		
 		boolean isUnwanted = false;
