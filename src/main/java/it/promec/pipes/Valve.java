@@ -212,7 +212,7 @@ public class Valve {
 		
 	}
 
-	private void hidePipesBetweenInputs(List<Pipe> pipes) {
+	private static void hidePipesBetweenInputs(List<Pipe> pipes) {
 		
 		for(Pipe pipe : pipes) {
 			if(pipe.isPipeBetweenInputs()) {
@@ -274,5 +274,99 @@ public class Valve {
 				}
 			}
 		}
+	}
+	
+	public static void plainRefresh(List<Valve> valves, List<Pipe> pipes) {
+		
+		for(Pipe pipe: pipes) {
+			pipe.getGraphic().setFill(Constants.PIPE_OFF_COLOR);
+		}
+		
+		for(Valve valveNotClickable: valves) {
+			valveNotClickable.setClickable(false);
+			valveNotClickable.getGraphic().setStyle("-fx-cursor: none;");
+		}
+		
+		
+		for(Valve valve: valves) {	
+			for(Valve valveToConfront: valves) {
+				
+				int x = valveToConfront.getX();
+				int y = valveToConfront.getY();
+				
+				if(valve.isOpen() && valveToConfront.isOpen()) {
+					
+					if((valve.getX()==x)&&(valve.getY() == y+2)) {
+						for(Pipe pipe: pipes) {
+							if((pipe.getX() == x)&&((pipe.getY() == y+1))) {
+								pipe.getGraphic().setFill(pipeOnColor);
+								System.out.println("Enlighted pipe x=" + pipe.getX() + " y=" + pipe.getY());
+							}
+						}
+					}
+					
+					if((valve.getX()==x)&&(valve.getY() == y-2)) {
+						for(Pipe pipe: pipes) {
+							if((pipe.getX() == x)&&((pipe.getY() == y-1))) {
+								pipe.getGraphic().setFill(pipeOnColor);
+								//System.out.println("Enlighted pipe x=" + pipe.getX() + " y=" + pipe.getY());
+							}
+						}
+					}
+					
+					if((valve.getY()==y)&&(valve.getX() == x-2)) {
+						for(Pipe pipe: pipes) {
+							if((pipe.getY() == y)&&((pipe.getX() == x-1))) {
+								pipe.getGraphic().setFill(pipeOnColor);
+								//System.out.println("Enlighted pipe x=" + pipe.getX() + " y=" + pipe.getY());
+							}
+						}
+					}
+					
+					if((valve.getY()==y)&&(valve.getX() == x+2)) {
+						for(Pipe pipe: pipes) {
+							if((pipe.getY() == y)&&((pipe.getX() == x+1))) {
+								pipe.getGraphic().setFill(pipeOnColor);
+								//System.out.println("Enlighted pipe x=" + pipe.getX() + " y=" + pipe.getY());
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		for(Valve valve1: valves) {	
+			for(Valve valve2: valves) {
+				if((valve1.isOpen())) {
+					
+					int x = valve1.getX();
+					int y = valve2.getY();
+					
+					if(valve2.getX() == x) {
+						if((valve2.getY() == y +2)||(valve2.getY() == y -2)) {
+							valve2.setClickable(true);
+							valve2.getGraphic().setStyle("-fx-cursor: hand;");
+						}
+					}
+					
+					if(valve2.getY() == y) {
+						if((valve2.getX() == x +2)||(valve2.getX() == x -2)) {
+							valve2.setClickable(true);
+							valve2.getGraphic().setStyle("-fx-cursor: hand;");
+						}
+					}
+					
+					//Caso speciale
+					if((x == 13)&&(y == 7)) {
+						if((valve2.getX()==7)&&(valve2.getY()==7)) {
+							valve2.setClickable(true);
+							valve2.getGraphic().setStyle("-fx-cursor: hand;");
+						}
+					}
+				}
+			}
+		}
+			
+		hidePipesBetweenInputs(pipes);	
 	}
 }

@@ -92,6 +92,7 @@ public class CommandsPanel {
 	private static Button undoButton() {
 		
 		Button undo = new Button("Undo");
+		undo.setDisable(true);
 		undo.setStyle(buttonStyle);
 		undo.setOnMouseReleased(new EventHandler<MouseEvent>()
         {
