@@ -10,6 +10,7 @@ import javafx.scene.shape.Rectangle;
 public class Valve {
 
 	private boolean open = false;
+	private boolean clickable = false;
 	private Circle graphic;
 	private Rectangle background;
 	private int x;
@@ -25,21 +26,27 @@ public class Valve {
 		Circle circle = new Circle();
 		circle.setFill(Constants.VALVE_OFF_COLOR);
 		circle.setRadius(10);
-		circle.setStyle("-fx-cursor: hand;"); //Hand pointer on mouse over
+		if(isInput()) {
+			circle.setStyle("-fx-cursor: hand;"); //Hand pointer on mouse over
+			clickable = true;
+		}
 		circle.setOnMouseReleased(new EventHandler<MouseEvent>()
         {
             @Override
             public void handle(MouseEvent t) {
-            	if(!open) {
+            	if((!open)&&(clickable)) {
             		System.out.println("Valve clicked x=" + x + " y=" + y);
                 	open = true;
+                	clickable = false;
                 	Color color = (open) ? Constants.VALVE_ON_COLOR : Constants.VALVE_OFF_COLOR;
             		circle.setFill(color);
             		circle.setStyle("-fx-cursor: none;"); //Hide hand pointer on mouse over
             		enlightPipes(x, y, valves, pipes);
             		enlightSpecialCases(x, y, valves, pipes);
+            		findNewClickables(x, y, valves);
             	}
             }
+
         });
 		
 		graphic = circle;
@@ -59,6 +66,14 @@ public class Valve {
 
 	public void setOpen(boolean open) {
 		this.open = open;
+	}
+
+	public boolean isClickable() {
+		return clickable;
+	}
+
+	public void setClickable(boolean clickable) {
+		this.clickable = clickable;
 	}
 
 	public Circle getGraphic() {
@@ -255,5 +270,27 @@ public class Valve {
 	
 	public boolean isInput() {
 		return ((x == Constants.COLUMNS - 2)||(x == 1 && y == 7));
+	}
+	
+	private void findNewClickables(int x, int y, List<Valve> valves) {
+		
+		for(Valve valve: valves) {
+		
+			if(valve.getX() == x) {
+				if((valve.getY() == y +2)||(valve.getY() == y -2)) {
+					System.out.println("Now clickable: " + valve.getX() + " " + valve.getY());
+					valve.setClickable(true);
+					valve.getGraphic().setStyle("-fx-cursor: hand;");
+				}
+			}
+			
+			if(valve.getY() == y) {
+				if((valve.getX() == x +2)||(valve.getX() == x -2)) {
+					System.out.println("Now clickable: " + valve.getX() + " " + valve.getY());
+					valve.setClickable(true);
+					valve.getGraphic().setStyle("-fx-cursor: hand;");
+				}
+			}
+		}
 	}
 }
