@@ -142,4 +142,42 @@ public class Panel {
 		return isUnwanted;
 	}
 
+	public static void reset() {
+		
+		for(Pipe pipe: pipes) {
+			pipe.getGraphic().setFill(Constants.PIPE_OFF_COLOR);
+		}
+		
+		hidePipesBetweenInputs(pipes);
+		
+		for(Valve valve: valves) {
+			valve.getGraphic().setFill(Constants.VALVE_OFF_COLOR);
+			valve.setOpen(false);
+		}
+	}
+	
+	private static void hidePipesBetweenInputs(List<Pipe> pipes) {
+		
+		for(Pipe pipe : pipes) {
+			if(pipe.isPipeBetweenInputs()) {
+				pipe.getGraphic().setFill(Constants.BACKGROUND_COLOR);
+			}
+		}
+	}
+
+	public static List<Valve> getValves() {
+		return valves;
+	}
+
+	public static void setValves(List<Valve> valves) {
+		Panel.valves = valves;
+	}
+
+	public static List<Pipe> getPipes() {
+		return pipes;
+	}
+
+	public static void setPipes(List<Pipe> pipes) {
+		Panel.pipes = pipes;
+	}
 }

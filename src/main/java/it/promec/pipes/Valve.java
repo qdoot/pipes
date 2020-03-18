@@ -9,7 +9,7 @@ import javafx.scene.shape.Rectangle;
 
 public class Valve {
 
-	private boolean open;
+	private boolean open = false;
 	private Circle graphic;
 	private Rectangle background;
 	private int x;
@@ -30,12 +30,15 @@ public class Valve {
         {
             @Override
             public void handle(MouseEvent t) {
-            	System.out.println("Valve clicked x=" + x + " y=" + y);
-            	open = !open;
-            	Color color = (open) ? Constants.VALVE_ON_COLOR : Constants.VALVE_OFF_COLOR;
-        		circle.setFill(color);
-        		enlightPipes(x, y, valves, pipes);
-        		//if(isInput()) changePipeColor();
+            	if(!open) {
+            		System.out.println("Valve clicked x=" + x + " y=" + y);
+                	open = true;
+                	Color color = (open) ? Constants.VALVE_ON_COLOR : Constants.VALVE_OFF_COLOR;
+            		circle.setFill(color);
+            		circle.setStyle("-fx-cursor: none;"); //Hide hand pointer on mouse over
+            		enlightPipes(x, y, valves, pipes);
+            		enlightSpecialCases(x, y, valves, pipes);
+            	}
             }
         });
 		
@@ -134,9 +137,90 @@ public class Valve {
 			}
 			
 			hidePipesBetweenInputs(pipes);
+			
 		}
 	}
 	
+	private void enlightSpecialCases(int x, int y, List<Valve> valves, List<Pipe> pipes) {
+		
+		
+		//START Gestione tubo lungo
+		boolean specialValveOn1 = false;
+		boolean specialValveOn2 = false;
+		
+		if(y==Constants.ROWS-2) {
+			
+			for(Valve valve : valves) {
+				
+				if(valve.getX()==7) {
+					if(valve.isOpen())
+						specialValveOn1 = true;
+				}
+				
+				if(valve.getX()==13) {
+					if(valve.isOpen())
+						specialValveOn2 = true;
+				}
+			}
+		}
+		
+		for(Pipe pipe: pipes) {
+			if(specialValveOn1 && specialValveOn2) {
+				if(pipe.getY() == Constants.ROWS-2) {
+					if((pipe.getX() >= 8)&&(pipe.getX()<=12)) {
+						pipe.getGraphic().setFill(pipeOnColor);
+					}
+				}
+			}
+		}
+		//END Gestione tubo lungo
+		
+		
+		boolean specialValveOn3 = false;
+		boolean specialValveOn4 = false;
+		
+		//START Gestione tubo input a sinistra
+		
+		if(y==Constants.ROWS-2) {
+			
+			for(Valve valve : valves) {
+				
+				if(valve.getX()==1) {
+					if(valve.isOpen()) {
+						specialValveOn3 = true;
+					}		
+				}
+				
+				if(valve.getX()==3) {
+					if(valve.isOpen()) {
+						specialValveOn4 = true;
+					}	
+				}
+				
+				
+			}
+		}
+		
+		
+		if(specialValveOn3 && specialValveOn4) {
+			System.out.println("Both open!");
+		} else {
+			System.out.println(specialValveOn3 + " " + specialValveOn4);
+		}
+		
+		for(Pipe pipe: pipes) {
+			if(specialValveOn3 && specialValveOn4) {
+				if(pipe.getY() == Constants.ROWS-2) {
+					if((pipe.getX() >= 1)&&(pipe.getX()<=3)) {
+						pipe.getGraphic().setFill(pipeOnColor);
+					}
+				}
+			}
+		}
+		
+		//END Gestione tubo input a sinistra
+	}
+
 	private void hidePipesBetweenInputs(List<Pipe> pipes) {
 		
 		for(Pipe pipe : pipes) {
