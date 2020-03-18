@@ -2,6 +2,7 @@ package it.promec.pipes;
 
 import java.util.List;
 import javafx.event.EventHandler;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -60,6 +61,26 @@ public class Valve {
 		rectangle.setFill(color);
 		rectangle.setHeight(Constants.RECTANGLE_Y);
 		rectangle.setWidth(Constants.RECTANGLE_X);
+		Tooltip.install(
+			    rectangle,
+			    new Tooltip("VALVOLA: [" + x/2 + "][" + y/2 + "]")
+		);
+		/*
+		rectangle.setOnMouseEntered(new EventHandler<MouseEvent>() 
+		{
+
+			@Override
+			public void handle(MouseEvent event) {
+				System.out.println("Coordinates");
+				Stage stickyNotesStage = new Stage();
+		        stickyNotesStage.initOwner(null);
+		        stickyNotesStage.initStyle(StageStyle.UNDECORATED);
+		        StackPane stickyNotesPane = new StackPane();
+		        stickyNotesPane.setPrefSize(200, 200);
+		        stickyNotesPane.setStyle("-fx-background-color: yellow;");
+		        stickyNotesStage.setScene(new Scene(stickyNotesPane));
+			}		
+		});*/
 		
 		background = rectangle;
 	}
@@ -181,26 +202,30 @@ public class Valve {
 		
 		//START Gestione tubo lungo
 		boolean specialValveOn1 = false;
-		boolean specialValveOn2 = false;
-		
-		if(y==7) {
+		if(y==7 && x==7) {
 			
 			for(Valve valve : valves) {
 				
-				if(valve.getX()==7) {
+				if((valve.getX()==13)&&(valve.getY()==7)) {
 					if(valve.isOpen())
 						specialValveOn1 = true;
 				}
+			}
+		}
+		
+		if(y==7 && x==13) {
+			
+			for(Valve valve : valves) {
 				
-				if(valve.getX()==13) {
+				if((valve.getX()==7)&&(valve.getY()==7)) {
 					if(valve.isOpen())
-						specialValveOn2 = true;
+						specialValveOn1 = true;
 				}
 			}
 		}
 		
 		for(Pipe pipe: pipes) {
-			if(specialValveOn1 && specialValveOn2) {
+			if(specialValveOn1) {
 				if(pipe.getY() == 7) {
 					if((pipe.getX() >= 8)&&(pipe.getX()<=12)) {
 						pipe.getGraphic().setFill(pipeOnColor);
