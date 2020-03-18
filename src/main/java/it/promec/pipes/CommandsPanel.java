@@ -3,6 +3,7 @@ package it.promec.pipes;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -13,6 +14,7 @@ public class CommandsPanel {
 	
 	public static Color col =  Valve.pipeOnColor;
 	public static GridPane buttonsGrid = new GridPane();
+	private static String buttonStyle = "-fx-pref-width: 150px;";
 
 	public static StackPane create() {
 		
@@ -37,11 +39,12 @@ public class CommandsPanel {
 			
 		buttonsGrid.setHgap(10);
 		buttonsGrid.setVgap(10);
-		buttonsGrid.add(reset, 0, 0);
-		buttonsGrid.add(cambiaColore, 0, 1);
+		buttonsGrid.add(new Label("Lista Comandi: "), 0, 0);
+		buttonsGrid.add(reset, 0, 1);
+		buttonsGrid.add(cambiaColore, 0, 2);
 		Rectangle chosenColor = new Rectangle(25, 25);
 		chosenColor.setFill(col);
-		buttonsGrid.add(chosenColor, 1, 1);
+		buttonsGrid.add(chosenColor, 1, 2);
 		buttonsGrid.setPadding(new Insets(10, 10, 10, 10));
 		commandsPanel.getChildren().add(buttonsGrid);
 		
@@ -51,6 +54,7 @@ public class CommandsPanel {
 	private static Button resetButton() {
 		
 		Button reset = new Button("Reset");
+		reset.setStyle(buttonStyle);
 		reset.setOnMouseReleased(new EventHandler<MouseEvent>()
         {
             @Override
@@ -66,6 +70,7 @@ public class CommandsPanel {
 	private static Button cambiaColoreButton() {
 		
 		Button cambiaColore = new Button("Cambia colore");
+		cambiaColore.setStyle(buttonStyle);
 		cambiaColore.setOnMouseReleased(new EventHandler<MouseEvent>()
         {
             @Override
@@ -73,8 +78,8 @@ public class CommandsPanel {
             	System.out.println("Cambia colore button clicked!");
             	Rectangle chosenColor = new Rectangle(25, 25);
         		chosenColor.setFill(Valve.pipeOnColor);
-            	Valve.changePipeColor();
-            	Rectangle chosenColo = (Rectangle) buttonsGrid.getChildren().get(2);
+            	Valve.changePipeOnColor();
+            	Rectangle chosenColo = (Rectangle) buttonsGrid.getChildren().get(3);
             	chosenColo.setFill(Valve.pipeOnColor);
             }
         });

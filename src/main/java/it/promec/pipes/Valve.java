@@ -127,7 +127,7 @@ public class Valve {
 					for(Pipe pipe: pipes) {
 						if((pipe.getX() == x)&&((pipe.getY() == y-1))) {
 							pipe.getGraphic().setFill(pipeOnColor);
-							System.out.println("Enlighted pipe x=" + pipe.getX() + " y=" + pipe.getY());
+							//System.out.println("Enlighted pipe x=" + pipe.getX() + " y=" + pipe.getY());
 						}
 					}
 				}
@@ -136,7 +136,7 @@ public class Valve {
 					for(Pipe pipe: pipes) {
 						if((pipe.getY() == y)&&((pipe.getX() == x-1))) {
 							pipe.getGraphic().setFill(pipeOnColor);
-							System.out.println("Enlighted pipe x=" + pipe.getX() + " y=" + pipe.getY());
+							//System.out.println("Enlighted pipe x=" + pipe.getX() + " y=" + pipe.getY());
 						}
 					}
 				}
@@ -145,7 +145,7 @@ public class Valve {
 					for(Pipe pipe: pipes) {
 						if((pipe.getY() == y)&&((pipe.getX() == x+1))) {
 							pipe.getGraphic().setFill(pipeOnColor);
-							System.out.println("Enlighted pipe x=" + pipe.getX() + " y=" + pipe.getY());
+							//System.out.println("Enlighted pipe x=" + pipe.getX() + " y=" + pipe.getY());
 						}
 					}
 				}
@@ -181,7 +181,7 @@ public class Valve {
 		
 		for(Pipe pipe: pipes) {
 			if(specialValveOn1 && specialValveOn2) {
-				if(pipe.getY() == Constants.ROWS-2) {
+				if(pipe.getY() == 7) {
 					if((pipe.getX() >= 8)&&(pipe.getX()<=12)) {
 						pipe.getGraphic().setFill(pipeOnColor);
 					}
@@ -190,50 +190,6 @@ public class Valve {
 		}
 		//END Gestione tubo lungo
 		
-		
-		boolean specialValveOn3 = false;
-		boolean specialValveOn4 = false;
-		
-		//START Gestione tubo input a sinistra
-		
-		if(y==7) {
-			
-			for(Valve valve : valves) {
-				
-				if(valve.getX()==1) {
-					if(valve.isOpen()) {
-						specialValveOn3 = true;
-					}		
-				}
-				
-				if(valve.getX()==3) {
-					if(valve.isOpen()) {
-						specialValveOn4 = true;
-					}	
-				}
-				
-				
-			}
-		}
-		
-		
-		if(specialValveOn3 && specialValveOn4) {
-			System.out.println("Both open!");
-		} else {
-			System.out.println(specialValveOn3 + " " + specialValveOn4);
-		}
-		
-		for(Pipe pipe: pipes) {
-			if(specialValveOn3 && specialValveOn4) {
-				if(pipe.getY() == Constants.ROWS-2) {
-					if((pipe.getX() >= 1)&&(pipe.getX()<=3)) {
-						pipe.getGraphic().setFill(pipeOnColor);
-					}
-				}
-			}
-		}
-		
-		//END Gestione tubo input a sinistra
 	}
 
 	private void hidePipesBetweenInputs(List<Pipe> pipes) {
@@ -245,7 +201,7 @@ public class Valve {
 		}
 	}
 
-	public static void changePipeColor() {
+	public static void changePipeOnColor() {
 		
 		numberOfFlows++;
 		if(numberOfFlows >=6) numberOfFlows = 1;
@@ -254,16 +210,16 @@ public class Valve {
 			
 			case 1:	pipeOnColor = Color.CORAL;
 								  break;
-			case 2:	pipeOnColor = Color.AQUAMARINE;
+			case 2:	pipeOnColor = Color.YELLOW;
 			  					  break;
-			case 3:	pipeOnColor = Color.FIREBRICK;
+			case 3:	pipeOnColor = Color.GREEN;
 			  					  break;
-			case 4:	pipeOnColor = Color.YELLOW;
+			case 4:	pipeOnColor = Color.BLUE;
 			  					  break;
-			case 5:	pipeOnColor = Color.HOTPINK;
+			case 5:	pipeOnColor = Color.PINK;
 			  					  break;
 			
-			default:	pipeOnColor = Color.PALEVIOLETRED;
+			default:	pipeOnColor = Color.BROWN;
 			  						  break;
 		}
 	}
@@ -278,7 +234,6 @@ public class Valve {
 		
 			if(valve.getX() == x) {
 				if((valve.getY() == y +2)||(valve.getY() == y -2)) {
-					System.out.println("Now clickable: " + valve.getX() + " " + valve.getY());
 					valve.setClickable(true);
 					valve.getGraphic().setStyle("-fx-cursor: hand;");
 				}
@@ -286,7 +241,14 @@ public class Valve {
 			
 			if(valve.getY() == y) {
 				if((valve.getX() == x +2)||(valve.getX() == x -2)) {
-					System.out.println("Now clickable: " + valve.getX() + " " + valve.getY());
+					valve.setClickable(true);
+					valve.getGraphic().setStyle("-fx-cursor: hand;");
+				}
+			}
+			
+			//Caso speciale
+			if((x == 13)&&(y == 7)) {
+				if((valve.getX()==7)&&(valve.getY()==7)) {
 					valve.setClickable(true);
 					valve.getGraphic().setStyle("-fx-cursor: hand;");
 				}

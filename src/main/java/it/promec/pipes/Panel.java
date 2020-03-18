@@ -110,6 +110,7 @@ public class Panel {
 		grid.add(horizontalPipe.getGraphic(), 2, 7);
 		
 		Valve valve = new Valve(1, 7, valves, pipes);
+		valves.add(valve);
 		grid.add(valve.getBackground(), 1, 7);
 		grid.add(valve.getGraphic(), 1, 7);
 		//END input e collegamento sulla sinistra
