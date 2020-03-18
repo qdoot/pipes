@@ -148,7 +148,7 @@ public class Valve {
 		boolean specialValveOn1 = false;
 		boolean specialValveOn2 = false;
 		
-		if(y==Constants.ROWS-2) {
+		if(y==7) {
 			
 			for(Valve valve : valves) {
 				
@@ -181,7 +181,7 @@ public class Valve {
 		
 		//START Gestione tubo input a sinistra
 		
-		if(y==Constants.ROWS-2) {
+		if(y==7) {
 			
 			for(Valve valve : valves) {
 				
@@ -254,6 +254,6 @@ public class Valve {
 	}
 	
 	public boolean isInput() {
-		return ((x == Constants.COLUMNS - 2)||(x == 1 && y == Constants.ROWS -2));
+		return ((x == Constants.COLUMNS - 2)||(x == 1 && y == 7));
 	}
 }

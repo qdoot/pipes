@@ -113,6 +113,26 @@ public class Panel {
 		grid.add(valve.getBackground(), 1, 7);
 		grid.add(valve.getGraphic(), 1, 7);
 		//END input e collegamento sulla sinistra
+		
+		//START uscite
+		Pipe uscita1 = new Pipe(3, 8, false);
+		Pipe uscita2 = new Pipe(5, 8, false);
+		Pipe uscita3 = new Pipe(7, 8, false);
+		Pipe uscita4 = new Pipe(9, 6, false);
+		Pipe uscita5 = new Pipe(11, 6, false);
+		
+		pipes.add(uscita1);
+		pipes.add(uscita2);
+		pipes.add(uscita3);
+		pipes.add(uscita4);
+		pipes.add(uscita5);
+		
+		grid.add(uscita1.getGraphic(), 3, 8);
+		grid.add(uscita2.getGraphic(), 5, 8);
+		grid.add(uscita3.getGraphic(), 7, 8);
+		grid.add(uscita4.getGraphic(), 9, 6);
+		grid.add(uscita5.getGraphic(), 11, 6);
+		//END uscite
 	}
 
 	public static boolean isUnwantedElement(int x, int y) {
@@ -131,12 +151,20 @@ public class Panel {
 		unwantedElementCoordinates.add(new int[] {11,7});
 		unwantedElementCoordinates.add(new int[] {11,6});
 		
+		List<Integer> unwantedRows = new ArrayList<Integer>();
+		unwantedRows.add(8);
+		unwantedRows.add(9);
+		
 		
 		for(int[] unwantedElementCoordinate : unwantedElementCoordinates) {
 			if((unwantedElementCoordinate[0] == x) && (unwantedElementCoordinate[1] == y)) {
 				isUnwanted = true;
 				break;
 			}
+			
+			for(int row: unwantedRows)
+				if(y == row)
+					isUnwanted = true;
 		}
 		
 		return isUnwanted;

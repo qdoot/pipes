@@ -4,7 +4,7 @@ import javafx.scene.paint.Color;
 
 public class Constants {
 
-	public static final int ROWS = 9;
+	public static final int ROWS = 11;
 	public static final int COLUMNS = 15;
 	public static final int RECTANGLE_X = 50;
 	public static final int RECTANGLE_Y = RECTANGLE_X;
