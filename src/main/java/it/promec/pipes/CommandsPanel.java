@@ -34,6 +34,7 @@ public class CommandsPanel {
 		
 		Button reset = resetButton();
 		Button cambiaColore = cambiaColoreButton();
+		Button undo = undoButton();
 		
 		commandsPanel.getChildren().add(background);
 			
@@ -45,6 +46,7 @@ public class CommandsPanel {
 		Rectangle chosenColor = new Rectangle(25, 25);
 		chosenColor.setFill(col);
 		buttonsGrid.add(chosenColor, 1, 2);
+		buttonsGrid.add(undo, 0, 3);
 		buttonsGrid.setPadding(new Insets(10, 10, 10, 10));
 		commandsPanel.getChildren().add(buttonsGrid);
 		
@@ -85,5 +87,20 @@ public class CommandsPanel {
         });
 		
 		return cambiaColore;
+	}
+	
+	private static Button undoButton() {
+		
+		Button undo = new Button("Undo");
+		undo.setStyle(buttonStyle);
+		undo.setOnMouseReleased(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent t) {
+            	Panel.undo();
+            }
+        });
+		
+		return undo;
 	}
 }

@@ -15,6 +15,8 @@ public class Valve {
 	private Rectangle background;
 	private int x;
 	private int y;
+	private static int xLastClicked;
+	private static int yLastClicked;
 	private static int numberOfFlows = 1;
 	public static Color pipeOnColor = Color.CORAL;
 	
@@ -44,6 +46,8 @@ public class Valve {
             		enlightPipes(x, y, valves, pipes);
             		enlightSpecialCases(x, y, valves, pipes);
             		findNewClickables(x, y, valves);
+            		xLastClicked = x;
+            		yLastClicked = y;
             	}
             }
 
@@ -108,6 +112,22 @@ public class Valve {
 		this.y = y;
 	}
 	
+	public static int getxLastClicked() {
+		return xLastClicked;
+	}
+
+	public static void setxLastClicked(int xLastClicked) {
+		Valve.xLastClicked = xLastClicked;
+	}
+
+	public static int getyLastClicked() {
+		return yLastClicked;
+	}
+
+	public static void setyLastClicked(int yLastClicked) {
+		Valve.yLastClicked = yLastClicked;
+	}
+
 	private void enlightPipes(int x, int y, List<Valve> valves, List<Pipe> pipes) {
 		
 		for(Valve valve: valves) {

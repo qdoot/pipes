@@ -182,6 +182,30 @@ public class Panel {
 		for(Valve valve: valves) {
 			valve.getGraphic().setFill(Constants.VALVE_OFF_COLOR);
 			valve.setOpen(false);
+			if(!valve.isInput()) {
+				valve.getGraphic().setStyle("-fx-cursor: none;"); //Hand pointer on mouse over
+				valve.setClickable(false);
+			} else {
+				valve.getGraphic().setStyle("-fx-cursor: hand;"); //Hand pointer on mouse over
+				valve.setClickable(true);
+			}
+		}
+	}
+	
+	public static void undo() {
+		
+		for(Valve valve: valves) {
+			if((valve.getX() == Valve.getxLastClicked())&&(valve.getY() == Valve.getyLastClicked())) {	
+				valve.getGraphic().setFill(Constants.VALVE_OFF_COLOR);
+				valve.setOpen(false);
+				if(!valve.isInput()) {
+					valve.getGraphic().setStyle("-fx-cursor: none;"); //Hand pointer on mouse over
+					valve.setClickable(false);
+				} else {
+					valve.getGraphic().setStyle("-fx-cursor: hand;"); //Hand pointer on mouse over
+					valve.setClickable(true);
+				}
+			}
 		}
 	}
 	
