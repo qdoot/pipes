@@ -97,7 +97,7 @@ public class Panel {
 	private static void addSpecialElements(GridPane grid) {
 		
 		//START lungo collegamento ultimo input a destra
-		for(int x=8; x<=11; x++) {
+		for(int x=10; x<=13; x++) {
 			Pipe horizontalPipe = new Pipe(x, 7, true);
 			pipes.add(horizontalPipe);
 			grid.add(horizontalPipe.getGraphic(), x, 7);
@@ -105,34 +105,42 @@ public class Panel {
 		//END lungo collegamento ultimo input a destra
 		
 		//START input e collegamento sulla sinistra
-		Pipe horizontalPipe = new Pipe(2, 7, true);
+		Pipe horizontalPipe = new Pipe(3, 7, true);
 		pipes.add(horizontalPipe);
-		grid.add(horizontalPipe.getGraphic(), 2, 7);
+		grid.add(horizontalPipe.getGraphic(), 3, 7);
 		
-		Valve valve = new Valve(1, 7, valves, pipes);
+		/*
+		Pipe horizontalPipe2 = new Pipe(4, 7, true);
+		pipes.add(horizontalPipe2);
+		grid.add(horizontalPipe.getGraphic(), 4, 7);*/
+		
+		Valve valve = new Valve(2, 7, valves, pipes);
 		valves.add(valve);
-		grid.add(valve.getBackground(), 1, 7);
-		grid.add(valve.getGraphic(), 1, 7);
+		grid.add(valve.getBackground(), 2, 7);
+		grid.add(valve.getGraphic(), 2, 7);
 		//END input e collegamento sulla sinistra
 		
 		//START uscite
-		Pipe uscita1 = new Pipe(3, 8, false);
-		Pipe uscita2 = new Pipe(5, 8, false);
-		Pipe uscita3 = new Pipe(7, 8, false);
-		Pipe uscita4 = new Pipe(9, 6, false);
-		Pipe uscita5 = new Pipe(11, 6, false);
+		Pipe uscita1 = new Pipe(5, 8, false);
+		Pipe uscita2 = new Pipe(7, 8, false);
+		Pipe uscita3 = new Pipe(9, 8, false);
+		Pipe uscita4 = new Pipe(11, 6, false);
+		Pipe uscita5 = new Pipe(13, 6, false);
+		Pipe uscita6 = new Pipe(3, 6, false);
 		
 		pipes.add(uscita1);
 		pipes.add(uscita2);
 		pipes.add(uscita3);
 		pipes.add(uscita4);
 		pipes.add(uscita5);
+		pipes.add(uscita6);
 		
-		grid.add(uscita1.getGraphic(), 3, 8);
-		grid.add(uscita2.getGraphic(), 5, 8);
-		grid.add(uscita3.getGraphic(), 7, 8);
-		grid.add(uscita4.getGraphic(), 9, 6);
-		grid.add(uscita5.getGraphic(), 11, 6);
+		grid.add(uscita1.getGraphic(), 5, 8);
+		grid.add(uscita2.getGraphic(), 7, 8);
+		grid.add(uscita3.getGraphic(), 9, 8);
+		grid.add(uscita4.getGraphic(), 11, 6);
+		grid.add(uscita5.getGraphic(), 13, 6);
+		grid.add(uscita6.getGraphic(), 3, 6);
 		//END uscite
 	}
 
@@ -141,20 +149,22 @@ public class Panel {
 		boolean isUnwanted = false;
 		
 		List<int[]> unwantedElementCoordinates = new ArrayList<int[]>();
-		unwantedElementCoordinates.add(new int[] {1,7});
-		unwantedElementCoordinates.add(new int[] {1,6});
-		unwantedElementCoordinates.add(new int[] {2,7});
+		unwantedElementCoordinates.add(new int[] {3,7});
+		unwantedElementCoordinates.add(new int[] {3,6});
 		
-		unwantedElementCoordinates.add(new int[] {8,7});
-		unwantedElementCoordinates.add(new int[] {9,7});
-		unwantedElementCoordinates.add(new int[] {9,6});
 		unwantedElementCoordinates.add(new int[] {10,7});
 		unwantedElementCoordinates.add(new int[] {11,7});
 		unwantedElementCoordinates.add(new int[] {11,6});
+		unwantedElementCoordinates.add(new int[] {12,7});
+		unwantedElementCoordinates.add(new int[] {13,7});
+		unwantedElementCoordinates.add(new int[] {13,6});
 		
 		List<Integer> unwantedRows = new ArrayList<Integer>();
+		List<Integer> unwantedColumns = new ArrayList<Integer>();
 		unwantedRows.add(8);
 		unwantedRows.add(9);
+		unwantedColumns.add(1);
+		unwantedColumns.add(2);
 		
 		
 		for(int[] unwantedElementCoordinate : unwantedElementCoordinates) {
@@ -165,6 +175,10 @@ public class Panel {
 			
 			for(int row: unwantedRows)
 				if(y == row)
+					isUnwanted = true;
+			
+			for(int column: unwantedColumns)
+				if(x == column)
 					isUnwanted = true;
 		}
 		

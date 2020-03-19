@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 public class Constants {
 
 	public static final int ROWS = 11;
-	public static final int COLUMNS = 15;
+	public static final int COLUMNS = 17;
 	public static final int RECTANGLE_X = 50;
 	public static final int RECTANGLE_Y = RECTANGLE_X;
 	public static final int WINDOW_X = (RECTANGLE_X * (COLUMNS + 3)) - 9;

@@ -46,6 +46,7 @@ public class Valve {
             		circle.setStyle("-fx-cursor: none;"); //Hide hand pointer on mouse over
             		enlightPipes(x, y, valves, pipes);
             		enlightSpecialCases(x, y, valves, pipes);
+            		enlightOutputs(x, y, valves, pipes);
             		findNewClickables(x, y, valves);
             		xLastClicked = x;
             		yLastClicked = y;
@@ -63,24 +64,8 @@ public class Valve {
 		rectangle.setWidth(Constants.RECTANGLE_X);
 		Tooltip.install(
 			    rectangle,
-			    new Tooltip("VALVOLA: [" + x/2 + "][" + y/2 + "]")
+			    new Tooltip("VALVOLA: [" + x + "][" + y + "]")
 		);
-		/*
-		rectangle.setOnMouseEntered(new EventHandler<MouseEvent>() 
-		{
-
-			@Override
-			public void handle(MouseEvent event) {
-				System.out.println("Coordinates");
-				Stage stickyNotesStage = new Stage();
-		        stickyNotesStage.initOwner(null);
-		        stickyNotesStage.initStyle(StageStyle.UNDECORATED);
-		        StackPane stickyNotesPane = new StackPane();
-		        stickyNotesPane.setPrefSize(200, 200);
-		        stickyNotesPane.setStyle("-fx-background-color: yellow;");
-		        stickyNotesStage.setScene(new Scene(stickyNotesPane));
-			}		
-		});*/
 		
 		background = rectangle;
 	}
@@ -200,24 +185,24 @@ public class Valve {
 	private void enlightSpecialCases(int x, int y, List<Valve> valves, List<Pipe> pipes) {
 		
 		
-		//START Gestione tubo lungo
+		//START Gestione tubo lungo destra
 		boolean specialValveOn1 = false;
-		if(y==7 && x==7) {
+		if(y==7 && x==9) {
 			
 			for(Valve valve : valves) {
 				
-				if((valve.getX()==13)&&(valve.getY()==7)) {
+				if((valve.getX()==15)&&(valve.getY()==7)) {
 					if(valve.isOpen())
 						specialValveOn1 = true;
 				}
 			}
 		}
 		
-		if(y==7 && x==13) {
+		if(y==7 && x==15) {
 			
 			for(Valve valve : valves) {
 				
-				if((valve.getX()==7)&&(valve.getY()==7)) {
+				if((valve.getX()==9)&&(valve.getY()==7)) {
 					if(valve.isOpen())
 						specialValveOn1 = true;
 				}
@@ -227,14 +212,77 @@ public class Valve {
 		for(Pipe pipe: pipes) {
 			if(specialValveOn1) {
 				if(pipe.getY() == 7) {
-					if((pipe.getX() >= 8)&&(pipe.getX()<=12)) {
+					if((pipe.getX() >= 10)&&(pipe.getX()<=14)) {
 						pipe.getGraphic().setFill(pipeOnColor);
 					}
 				}
 			}
 		}
-		//END Gestione tubo lungo
+		//END Gestione tubo lungo destra
 		
+		
+		//START Gestione tubo lungo sinistra
+		
+		boolean specialValveOn2 = false;
+		if(y==7 && x==2) {
+			
+			for(Valve valve : valves) {
+				
+				if((valve.getX()==5)&&(valve.getY()==7)) {
+					if(valve.isOpen())
+						specialValveOn2 = true;
+				}
+			}
+		}
+		
+		if(y==7 && x==5) {
+			
+			for(Valve valve : valves) {
+				
+				if((valve.getX()==2)&&(valve.getY()==7)) {
+					if(valve.isOpen())
+						specialValveOn2 = true;
+				}
+			}
+		}
+		
+		for(Pipe pipe: pipes) {
+			if(specialValveOn2) {
+				if(pipe.getY() == 7) {
+					if((pipe.getX() >= 3)&&(pipe.getX()<=4)) {
+						pipe.getGraphic().setFill(pipeOnColor);
+					}
+				}
+			}
+		}
+		
+		//END Gestione tubo lungo sinistra
+		
+	}
+	
+	private static void enlightOutputs(int x, int y, List<Valve> valves, List<Pipe> pipes) {
+		
+		
+		Color currentColor = new Color(pipeOnColor.getRed(), pipeOnColor.getGreen(), pipeOnColor.getBlue(), 1);
+		
+		for(Valve valve: valves) {
+			
+			if((x==3)&&(y==5)||
+			   (x==5)&&(y==7)||
+			   (x==7)&&(y==7)||
+			   (x==9)&&(y==7)||
+			   (x==11)&&(y==5)||
+			   (x==13)&&(y==5)) {
+				
+				if((valve.getX()==x)&&(valve.getY()==y) && valve.isOpen()) {
+					for(Pipe pipe: pipes) {
+						if((pipe.getX() == valve.getX())&&(pipe.getY() == valve.getY()+1)) {
+							pipe.getGraphic().setFill(currentColor);
+						}
+					}
+				}
+			}		
+		}
 	}
 
 	private static void hidePipesBetweenInputs(List<Pipe> pipes) {
@@ -270,7 +318,7 @@ public class Valve {
 	}
 	
 	public boolean isInput() {
-		return ((x == Constants.COLUMNS - 2)||(x == 1 && y == 7));
+		return ((x == Constants.COLUMNS - 2)||(x == 2 && y == 7));
 	}
 	
 	private void findNewClickables(int x, int y, List<Valve> valves) {
@@ -291,9 +339,17 @@ public class Valve {
 				}
 			}
 			
-			//Caso speciale
-			if((x == 13)&&(y == 7)) {
-				if((valve.getX()==7)&&(valve.getY()==7)) {
+			//Caso speciale destra
+			if((x == 15)&&(y == 7)) {
+				if((valve.getX()==9)&&(valve.getY()==7)) {
+					valve.setClickable(true);
+					valve.getGraphic().setStyle("-fx-cursor: hand;");
+				}
+			}
+			
+			//Caso speciale sinistra
+			if((x == 2)&&(y == 7)) {
+				if((valve.getX()==5)&&(valve.getY()==7)) {
 					valve.setClickable(true);
 					valve.getGraphic().setStyle("-fx-cursor: hand;");
 				}
