@@ -21,6 +21,7 @@ public class Valve {
 	private static int numberOfFlows = 1;
 	public static Color pipeOnColor = Color.CORAL;
 	public static int valveId = 402;
+	public static int inputId = 0;
 	
 	public Valve(int x, int y, List<Valve> valves, List<Pipe> pipes) {
 		
@@ -459,6 +460,13 @@ public class Valve {
 		if(!isInput()) {
 			label = "03." + valveId + "A";
 			valveId++;
+		} else {
+			
+			if((x==15)&&(y==1)) label = "Acqua Osmotizzata";
+			if((x==15)&&(y==3)) label = "Acqua Addolcita";
+			if((x==15)&&(y==5)) label = "Ingresso SIP";
+			if((x==15)&&(y==7)) label = "Ingresso Terreno";
+			if((x==2)&&(y==7)) label = "Inoculo";
 		}
 		
 		return label;
