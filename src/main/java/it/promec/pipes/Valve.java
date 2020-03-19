@@ -20,6 +20,7 @@ public class Valve {
 	private static int yLastClicked;
 	private static int numberOfFlows = 1;
 	public static Color pipeOnColor = Color.CORAL;
+	public static int valveId = 402;
 	
 	public Valve(int x, int y, List<Valve> valves, List<Pipe> pipes) {
 		
@@ -64,7 +65,7 @@ public class Valve {
 		rectangle.setWidth(Constants.RECTANGLE_X);
 		Tooltip.install(
 			    rectangle,
-			    new Tooltip("VALVOLA: [" + x + "][" + y + "]")
+			    new Tooltip("VALVOLA: [" + findValveLabel(x, y) + "]")
 		);
 		
 		background = rectangle;
@@ -449,5 +450,17 @@ public class Valve {
 		}
 			
 		hidePipesBetweenInputs(pipes);	
+	}
+	
+	private String findValveLabel(int x, int y) {
+		
+		String label = "";
+				
+		if(!isInput()) {
+			label = "03." + valveId + "A";
+			valveId++;
+		}
+		
+		return label;
 	}
 }

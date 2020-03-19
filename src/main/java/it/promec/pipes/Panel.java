@@ -64,8 +64,8 @@ public class Panel {
 				grid.getRowConstraints().add(row);
 				
 				if((i%2==1)&&(j%2==1)) {
-					Valve valve = new Valve(j, i, valves, pipes);
 					if(!isUnwantedElement(j,i)) {
+						Valve valve = new Valve(j, i, valves, pipes);
 						valves.add(valve);
 						grid.add(valve.getBackground(), j, i);
 						grid.add(valve.getGraphic(), j, i);
@@ -73,16 +73,16 @@ public class Panel {
 				}
 						
 				if((i%2==1)&&(j%2==0)) {
-					Pipe pipe = new Pipe(j, i, true);
 					if(!isUnwantedElement(j,i)) {
+						Pipe pipe = new Pipe(j, i, true);
 						pipes.add(pipe);
 						grid.add(pipe.getGraphic(), j, i);
 					}
 				}
 				
 				if((i%2==0)&&(j%2==1)) {
-					Pipe pipe = new Pipe(j, i, false);
 					if(!isUnwantedElement(j,i)) {
+						Pipe pipe = new Pipe(j, i, false);
 						pipes.add(pipe);
 						grid.add(pipe.getGraphic(), j, i);
 					}
